@@ -1,0 +1,30 @@
+name: LocalOsmosis
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  localosmosis:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: localosmosis-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: just@1.25.2
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build image
+        run: just build
+      - name: Push image
+        if: github.ref == 'refs/heads/main'
+        run: just push-image
