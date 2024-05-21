@@ -1,5 +1,5 @@
 GIT_SHA := `git rev-parse HEAD`
-IMAGE_DOMAIN := "ghcr.io/Levana-Protocol/localosmosis"
+IMAGE_DOMAIN := "ghcr.io/levana-protocol/localosmosis"
 
 # List all recipies
 default:
