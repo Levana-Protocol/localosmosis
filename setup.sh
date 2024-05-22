@@ -160,7 +160,7 @@ enable_cors () {
     dasel put string -f $CONFIG_FOLDER/app.toml -v "redis" '.osmosis-sqs.db-host'
 
     # Bind it to 0.0.0.0
-    sed -i 's/localhost/0.0.0.0' "$CONFIG_FOLDER/app.toml"
+    sed -i 's/localhost/0.0.0.0/' "$CONFIG_FOLDER/app.toml"
 }
 
 run_with_retries() {

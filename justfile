@@ -11,7 +11,7 @@ build:
 
 # Run
 run:
-	docker run --rm --tty --interactive --name osmolocaltest --net=host -p 26657:26657 -p 1317:1317 -p 9090:9090 -p 9091:9091 localosmo:{{GIT_SHA}}
+	docker run --rm --tty --interactive --name osmolocaltest -p 26657:26657 -p 1317:1317 -p 9090:9090 -p 9091:9091 {{IMAGE_DOMAIN}}:{{GIT_SHA}}
 
 # Debug exec
 debug-exec:
