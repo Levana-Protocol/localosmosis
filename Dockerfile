@@ -1,4 +1,4 @@
-FROM osmolabs/osmosis:27.0-alpine
+FROM osmolabs/osmosis:27.0.0-alpine
 
 RUN apk add dasel
 
