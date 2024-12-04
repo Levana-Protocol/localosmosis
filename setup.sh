@@ -117,7 +117,7 @@ add_genesis_accounts () {
 
     echo $MNEMONIC | osmosisd keys add $MONIKER --recover --keyring-backend=test --home $OSMOSIS_HOME
     echo $POOLSMNEMONIC | osmosisd keys add pools --recover --keyring-backend=test --home $OSMOSIS_HOME
-    osmosisd gentx $MONIKER 500000000uosmo --keyring-backend=test --chain-id=$CHAIN_ID --home $OSMOSIS_HOME
+    osmosisd gentx $MONIKER 500000000stake --keyring-backend=test --chain-id=$CHAIN_ID --home $OSMOSIS_HOME
 
     osmosisd collect-gentxs --home $OSMOSIS_HOME
 }
@@ -209,7 +209,7 @@ create_concentrated_pool_positions () {
     COUNTER=0
     # Loop through each set of parameters in the array
     for param in "$@"; do
-        run_with_retries "osmosisd tx concentratedliquidity create-position 6 $param 5000000000uosmo,1000000uion 0 0 --from pools --chain-id=$CHAIN_ID --home $OSMOSIS_HOME --keyring-backend=test -b block --fees 5000uosmo --gas 900000 --yes"
+        run_with_retries "osmosisd tx concentratedliquidity create-position 6 $param 5000000000stake,1000000uion 0 0 --from pools --chain-id=$CHAIN_ID --home $OSMOSIS_HOME --keyring-backend=test -b block --fees 5000uosmo --gas 900000 --yes"
     done
 }
 
