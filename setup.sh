@@ -85,6 +85,14 @@ edit_genesis () {
 
     # Update concentrated-liquidity (enable pool creation)
     dasel put -t bool -f $GENESIS '.app_state.concentratedliquidity.params.is_permissionless_pool_creation_enabled' -v true
+    # Enlarge Tx size from default 1MiB.
+    dasel put -t int -v 4194304 -f "${CONFIG_FOLDER}/config.toml" -r toml mempool.max_tx_bytes
+    # Enable CORS
+    sed -i "s/enabled-unsafe-cors = false/enabled-unsafe-cors = true/" "$CONFIG_FOLDER/app.toml"
+    sed -i "s/cors_allowed_origins = \[\]/cors_allowed_origins = \[\"\*\"\]/" "$CONFIG_FOLDER/config.toml"
+    sed -E -i "/timeout_(propose|prevote|precommit|commit)/s/[0-9]+m?s/260ms/" "$CONFIG_FOLDER/config.toml"
+    # Increase max gas allowed in mempool
+    sed -i 's/max-gas-wanted-per-tx = ".*"/max-gas-wanted-per-tx = "30000000"/' "$CONFIG_FOLDER/app.toml"
 }
 
 add_genesis_accounts () {
